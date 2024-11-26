@@ -3,12 +3,10 @@ from PIL import Image,ImageTk
 import requests
 from io import BytesIO
 
-from bottle import response, request
-from pygame.examples.aliens import load_image
-from клик import window
+from pygame.display import update
 
 
-def loade_image():
+def load_image(url):
     try:
         response =requests.get(url)
         response.raise_for_status()
@@ -19,20 +17,24 @@ def loade_image():
         print(f"Произошла ошибка{e}")
         return None
 
+def set_image():
+    img = load_image(url)
+    if img:
+        label.config(image=img)
+        label.image = img
+
 
 window =Tk()
 window.title("Cats")
 window.geometry("600x400")
 
 
-label= label()
+label= Label()
 label.pack()
+update.button =Button(text= "Обновить",cammand=set_image)
+update.button.pack
 
+url = "https://cataas.com/cat"
+set_image()
 
-
-url = "hrttps:// cataas.com/cat"
-img= load_image(url)
-if img:
-    label.config(image=img)
-    label.image = img
 window.mainloop()
