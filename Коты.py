@@ -18,10 +18,14 @@ def load_image(url):
         print(f"Произошла ошибка{e}")
         return None
 
-def set_image():
+def open_new_window():
     img = load_image(url)
     if img:
-        label.config(image=img)
+        new_widndow = Toplevel()
+        new_widndow.title("Картина коты")
+        new_widndow.geometry('600x 480')
+        label= Label(new_widndow,image=img)
+        label.pack()
         label.image = img
 
 def exit():
@@ -40,8 +44,8 @@ meny_bar= Menu(window)
 window.config(menu=meny_bar)
 
 file_menu =Menu(meny_bar,tearoff=0)
-meny_bar.add.cascade(label="Файл",menu=file_menu)
-file_menu.add_command(label="Загрузить фото",command=set_image)
+meny_bar.add_cascade(label="Файл",menu=file_menu)
+file_menu.add_command(label="Загрузить фото",command=open_new_window)
 file_menu.add_separator()
 file_menu.add_command(label="Выход",command=exit)
 url = "https://cataas.com/cat"
